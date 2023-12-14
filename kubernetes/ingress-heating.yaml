@@ -1,0 +1,19 @@
+#  Heating Ingress:
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: heating-ingress
+spec:
+  rules:
+  - host: localhost
+    http:
+      paths:
+      - pathType: Prefix
+        path: /api/heating
+        backend:
+          service:
+            name: heating-service
+            port:
+              number: 3000
+  ingressClassName: nginx

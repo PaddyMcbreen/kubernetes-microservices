@@ -1,0 +1,39 @@
+# Heating Deployment:
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: heating-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: heating-deployment
+  template:
+    metadata:
+      labels:
+        app: heating-deployment
+    spec:
+      containers:
+      - name: heating-k8s
+        image: paddymcbreen/heating-img:1.0
+        ports:
+        - containerPort: 3000
+
+---
+
+# Heating Service:
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: heating-service
+spec:
+  selector:
+    app: heating-deployment
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: ClusterIP
+  

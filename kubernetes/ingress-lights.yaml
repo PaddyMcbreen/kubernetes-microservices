@@ -1,0 +1,19 @@
+#  Lights Ingress:
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lights-ingress
+spec:
+  rules:
+  - host: localhost
+    http:
+      paths:
+      - pathType: Prefix
+        path: /api/lights
+        backend:
+          service:
+            name: lights-service
+            port:
+              number: 3000
+  ingressClassName: nginx
